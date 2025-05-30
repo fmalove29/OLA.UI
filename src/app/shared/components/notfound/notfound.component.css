@@ -1,0 +1,16 @@
+.not-found-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* full viewport height */
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  .not-found-wrapper img {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
