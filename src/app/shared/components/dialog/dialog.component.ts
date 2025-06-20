@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { DialogData } from '../../Models/DialogData';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-dialog',
-  imports: [],
+  standalone: true, 
+  imports: [MatDialogModule, MatButtonModule], 
   templateUrl: './dialog.component.html',
-  styleUrl: './dialog.component.css'
+  styleUrls: ['./dialog.component.css']
 })
-export class DialogComponent {
+export class DialogComponent implements OnInit {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
+  ngOnInit(): void {}
 }

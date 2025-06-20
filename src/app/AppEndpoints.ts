@@ -6,4 +6,11 @@ export const AppEndpoints = {
         Login : `${apiUrl}Auth/login`,
         Register: `${apiUrl}Auth/customer-enrollment`
     },
+    Access : {
+        GetAllAccess : `${apiUrl}Access`,
+        AddModule : `${apiUrl}Access`
+    },
+    Permission : {
+        GetUserAccess : `${apiUrl}Permission/access`
+    }
 }

@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-body">
+        <div class="card-title"><h3>{{data.title}}</h3></div>
+        <hr>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <ng-container *ngFor="let field of data.fields">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input matInput [formControlName]="field.name" [type]="field.type || 'text'" />
+                </mat-form-field>
+            </ng-container>
+        
+            <div mat-dialog-actions>
+                <button mat-button mat-dialog-close>Cancel</button>
+                <button mat-raised-button color="primary" type="submit"><mat-icon>send</mat-icon> Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
