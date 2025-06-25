@@ -19,7 +19,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DialogService } from '../../../../shared/service/dialog/dialog.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogFormComponent } from '../../../../shared/components/dialog-form/dialog-form.component';
-import { DialogFormFields } from '../../../../shared/Models/DialogFormFields';
+import { DialogFormData, DialogFormFields } from '../../../../shared/Models/DialogFormFields';
+import { Role, enumToOptions } from '../../../../shared/Models/Enum/Enum';
+import { Module } from '../../../../shared/Models/Enum/Enum';
+import Swal from 'sweetalert2';
+
 
 
 
@@ -96,9 +100,7 @@ export class AccessComponent implements OnInit {
   async openConfirmation()
   {
     this.dialogService.openConfirmation({
-      message: 'Are you sure you want to delete this?',
-      confirmText: 'Yes',
-      cancelText: 'No'
+      title : 'Are you sure you want to activate?',
     })
     .then((e)=>{
       this.accessService.UpdateAccess();
@@ -107,33 +109,90 @@ export class AccessComponent implements OnInit {
   
 
   openAccessDialog() {
-    const fields: DialogFormFields[] = [
-      { name: 'name', label: 'Name', type: 'text', required: true },
-      { name: 'path', label: 'Path', type: 'text', required: true },
-      { name: 'module', label: 'Module', type: 'text' },
-      { name: 'roles', label: 'Roles', type: 'text' },
-      { name: 'active', label: 'Active', type: 'checkbox' }
-    ];
-
-    this.formDialog.open(DialogFormComponent, {
-      data: {
-        title: 'Add Module',
-        fields,
-        initialValues: {
-          name: '',
-          path: '',
-          module: '',
-          roles: '',
-          active: true
+    const accessDialog: DialogFormData = {
+      title: 'Add Module',
+      confirmText: 'Submit',
+      cancelText: 'Cancel',
+      fields: [
+        {
+          name: 'moduleName', // renamed from 'name'
+          label: 'Name*',
+          type: 'text',
+          required: true,
+          placeholder: 'Enter module name'
+        },
+        {
+          name: 'path',
+          label: 'Path*',
+          type: 'text',
+          required: true,
+          placeholder: 'Enter path (e.g. /access)'
+        },
+        {
+          name: 'module',
+          label: 'Module',
+          type: 'autocomplete',
+          options: enumToOptions(Module),
+          required : true,
+          placeholder: 'Optional module name'
+        },
+        {
+          name: 'role', // renamed from 'name'
+          label: 'Roles',
+          type: 'chips-autocomplete',
+          options: enumToOptions(Role),
+          required: false,
+          placeholder: 'Enter role'
+        },
+        {
+          name: 'isActive',
+          label: 'Active',
+          type: 'checkbox',
+          defaultValue: true
         }
-      },
-      width: '400px'
-    }).afterClosed().subscribe(result => {
+      ],
+      initialValues: {
+        isActive: true
+      }
+    };
+    
+    this.dialogService.addEditDialog(accessDialog).subscribe(result => {
       if (result) {
-        console.log('Submitted Form Data:', result);
+        console.log(result.role);
+        const AccessRequest : Access = {
+          name :result.moduleName,
+          module : result.module,
+          path : result.path,
+          roles : result.role
+        }
+        this.accessService.addModule(AccessRequest).subscribe({
+          next : (response) =>{
+            console.log(response);
+            if(response)
+            {
+              Swal.fire({
+                title : response.name,
+                text : 'New Module Added',
+                icon : 'success',
+                confirmButtonText: 'OK'
+              }).then(()=>{
+                
+              })
+            }
+          },
+          error : (err) =>{
+            console.error(err);
+          }
+        })
+      } else {
+        console.log('Dialog was closed without submitting');
       }
     });
   }
+  
+  
+  
+  
   addModule(access : Access)
   {
     console.log(access);

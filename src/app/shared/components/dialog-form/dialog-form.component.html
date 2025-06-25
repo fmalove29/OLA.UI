@@ -1,21 +1,60 @@
 <div class="card">
     <div class="card-body">
-        <div class="card-title"><h3>{{data.title}}</h3></div>
-        <hr>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="card-title">
+            <h3>{{data.title}}</h3>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" style="padding: 16px">
             <ng-container *ngFor="let field of data.fields">
-                <mat-form-field appearance="fill" class="w-100">
-                    <mat-label>{{ field.label }}</mat-label>
-                    <input matInput [formControlName]="field.name" [type]="field.type || 'text'" />
-                </mat-form-field>
+                <ng-container [ngSwitch]="field.type">
+
+                    <!-- Text Field -->
+                    <mat-form-field *ngSwitchCase="'text'" appearance="fill" class="full-width">
+                        <mat-label>{{ field.label }}</mat-label>
+                        <input matInput [formControlName]="field.name" placeholder="{{field.placeholder}}" />
+                    </mat-form-field>
+                    <mat-form-field *ngSwitchCase="'autocomplete'" appearance="fill" class="full-width">
+                        <mat-label>{{ field.label }}</mat-label>
+                        <input matInput [formControlName]="field.name" [matAutocomplete]="auto"
+                            placeholder="field.placeholder" />
+
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of field.options" [value]="option.value">
+                                {{ option.label }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-form-field *ngSwitchCase="'chips-autocomplete'" appearance="fill" class="full-width">
+                        <mat-label>{{ field.label }}</mat-label>
+
+                        <mat-chip-grid #chipGrid [attr.aria-label]="field.label + ' selection'">
+                            <mat-chip-row *ngFor="let chip of chipValues[field.name]"
+                                (removed)="remove(field.name, chip)">
+                                {{ getChipLabel(field.name, chip) }}
+                                <button matChipRemove [attr.aria-label]="'Remove ' + chip">
+                                    <mat-icon>cancel</mat-icon>
+                                </button>
+                            </mat-chip-row>
+                        </mat-chip-grid>
+
+                        <input placeholder="field.placeholder" [formControl]="chipInputs[field.name]"
+                            [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="separatorKeyCodes"
+                            [matAutocomplete]="auto" (matChipInputTokenEnd)="add($event, field.name)" />
+
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, field.name)">
+                            <mat-option *ngFor="let option of filteredOptions[field.name]" [value]="option">
+                                {{ option }}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </ng-container>
             </ng-container>
-        
-            <div mat-dialog-actions>
-                <button mat-button mat-dialog-close>Cancel</button>
-                <button mat-raised-button color="primary" type="submit"><mat-icon>send</mat-icon> Submit</button>
+
+            <div class="dialog-actions" style="margin-top: 24px; display: flex; justify-content: flex-end;">
+                <button mat-button type="button" (click)="onCancel()">{{ data.cancelText || 'Cancel' }}</button>
+                <button mat-flat-button color="primary" type="submit">{{ data.confirmText || 'Submit' }}</button>
             </div>
         </form>
     </div>
 </div>
-
-
