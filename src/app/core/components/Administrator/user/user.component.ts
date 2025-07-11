@@ -1,0 +1,119 @@
+import { Component, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { AccountService } from '../../../services/account/account.service';
+import { Account, AccountParams, AccountResponse, Address, Family } from '../../../../models/Account/Account';
+import { filter, first } from 'rxjs';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from '@angular/animations';
+
+
+@Component({
+  selector: 'app-user',
+  imports: [MatButtonModule, MatIconModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule,CommonModule],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css',
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
+  
+})
+export class UserComponent  implements OnInit{
+  
+  displayedColumns: string[] = ['firstName', 'lastName', 'middleName', 'email', 'userName'];
+  columnsToDisplayWithExpand = [...this.displayedColumns, 'actions', 'expand'];
+  expandedElement: Account | null = null;
+
+  
+  dataSource = new MatTableDataSource<Account>();
+  totalItems = 0;
+  pageSize = 10;
+  currentPage = 1;
+  lastPage = 0;
+
+
+  firstName = '';
+  lastName = '';
+  email = '';
+  userName = '';
+  search ='';
+
+
+  constructor(private accountService : AccountService)
+  {
+
+  }
+
+  ngOnInit(): void {
+    this.loadAccount();
+  }
+
+  loadAccount(): void {
+    const AccessParams : AccountParams = {
+      firstName : this.firstName,
+      lastName : this.lastName,
+      userName : this.userName,
+      search : this.search,
+      email : this.email,
+      total : this.totalItems,
+      limit : this.pageSize,
+      page : this.currentPage,
+      lastPage : this.lastPage
+    }
+    
+
+    this.accountService.getAccounts(AccessParams).subscribe(response => {
+      console.log(response);
+      this.dataSource.data = response.data;
+    })  
+  }
+  onSearchChange(): void {
+    this.currentPage = 1;
+    this.loadAccount();
+  }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.loadAccount();
+  }
+
+  applyFilter(event: Event)
+  {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
+  isExpanded(element: Account) {
+    return this.expandedElement === element;
+  }
+
+  /** Toggles the expanded state of an element. */
+  toggle(element: Account) {
+    this.expandedElement = this.isExpanded(element) ? null : element;
+  }
+  
+  editUser(user : Account)
+  {
+    return user;
+  }
+  
+  deleteUser(user: Account)
+  {
+    return user;
+  }
+}

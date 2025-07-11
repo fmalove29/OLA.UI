@@ -48,7 +48,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./access.component.css'] 
 })
 export class AccessComponent implements OnInit {
-[x: string]: any;
+
   displayedColumns: string[] = ['name', 'path', 'module', 'roles', 'active', 'action'];
   dataSource = new MatTableDataSource<Access>();
 
@@ -176,7 +176,7 @@ export class AccessComponent implements OnInit {
                 icon : 'success',
                 confirmButtonText: 'OK'
               }).then(()=>{
-                
+
               })
             }
           },

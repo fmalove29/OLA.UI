@@ -10,7 +10,8 @@ export const routes: Routes = [
             { path: 'dashboard/overview', loadComponent : () => import('../app/core/components/dashboard/overview/overview.component').then(d => d.OverviewComponent), canActivate: [authGuard] },
             { path : 'dashboard/reports', loadComponent : () => import('../app/core/components/dashboard/reports/reports.component').then(dr => dr.ReportsComponent), canActivate : [authGuard] },
             { path : 'Access', loadComponent : () => import('../app/core/components/Administrator/access/access.component').then(a => a.AccessComponent), canActivate : [authGuard]},
-            { path : 'Permission', loadComponent : () => import('../app/core/components/Administrator/permission/permission.component').then(p => p.PermissionComponent), canActivate : [authGuard]}
+            { path : 'Permission', loadComponent : () => import('../app/core/components/Administrator/permission/permission.component').then(p => p.PermissionComponent), canActivate : [authGuard]},
+            { path : 'User', loadComponent : () => import('../app/core/components/Administrator/user/user.component').then(u => u.UserComponent), canActivate : [authGuard]}
         ],
         canActivate : [authGuard]
     },

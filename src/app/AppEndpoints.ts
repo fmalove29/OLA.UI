@@ -10,6 +10,10 @@ export const AppEndpoints = {
         GetAllAccess : `${apiUrl}Access`,
         AddModule : `${apiUrl}Access`
     },
+    Account : 
+    {
+        GetAccounts : `${apiUrl}Account/accounts`,
+    },
     Permission : {
         GetUserAccess : `${apiUrl}Permission/access`
     }
