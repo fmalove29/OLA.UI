@@ -8,6 +8,7 @@ import { authInterceptor } from './core/interceptors/interceptor';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { spinnerInterceptorInterceptor } from './shared/interceptors/spinner-interceptor.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(
       withFetch(),
-      withInterceptors([authInterceptor])
+      withInterceptors([authInterceptor, spinnerInterceptorInterceptor])
     ),
     importProvidersFrom(MatDialogModule),
     provideAnimations()

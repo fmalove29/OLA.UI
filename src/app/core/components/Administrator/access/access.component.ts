@@ -83,6 +83,8 @@ export class AccessComponent implements OnInit {
     });
   }
 
+  
+
   onSearchChange(): void {
     this.currentPage = 1;
     this.loadData();

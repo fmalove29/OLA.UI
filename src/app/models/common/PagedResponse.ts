@@ -1,7 +1,9 @@
-export interface PagedResponse<T>{
+export interface PagedResponse<T> {
     data: T[];
-    total: number;
-    page: number;
-    limit: number;
+    meta: {
+        total: number;
+        limit: number;
+        page: number;
+        lastPage: number;
+    };
 }
-

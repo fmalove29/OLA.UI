@@ -4,6 +4,7 @@ import { AppEndpoints } from '../../../AppEndpoints';
 import { Account, AccountParams, AccountResponse } from '../../../models/Account/Account';
 import { Observable } from 'rxjs';
 import { PagedResponse } from '../../../models/common/PagedResponse';
+import { AccountProfile } from '../../../models/response/Administrator/AccountProfile';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,10 @@ export class AccountService {
     }
   
     return this.http.get<PagedResponse<Account>>(AppEndpoints.Account.GetAccounts, { params });
+  }
+
+  checkProfileByAdmin(id : string) : Observable<AccountProfile>
+  {
+    return this.http.get<AccountProfile>(AppEndpoints.Account.CheckProfileByAdmin, {params : {accountId : id}});
   }
 }

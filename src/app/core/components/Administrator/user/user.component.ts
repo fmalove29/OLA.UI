@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { AccountService } from '../../../services/account/account.service';
-import { Account, AccountParams, AccountResponse, Address, Family } from '../../../../models/Account/Account';
-import { filter, first } from 'rxjs';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { Account, AccountParams } from '../../../../models/Account/Account';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router} from '@angular/router'; 
 import {
   trigger,
   state,
@@ -16,11 +16,12 @@ import {
   transition,
   animate
 } from '@angular/animations';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-user',
-  imports: [MatButtonModule, MatIconModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule,CommonModule],
+  imports: [MatButtonModule, MatIconModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule,CommonModule, RouterModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
   animations: [
@@ -52,8 +53,9 @@ export class UserComponent  implements OnInit{
   userName = '';
   search ='';
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private accountService : AccountService)
+  constructor(private accountService : AccountService, private router : Router)
   {
 
   }
@@ -78,8 +80,12 @@ export class UserComponent  implements OnInit{
 
     this.accountService.getAccounts(AccessParams).subscribe(response => {
       console.log(response);
+      this.totalItems = response.meta.total;
       this.dataSource.data = response.data;
     })  
+  }
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator
   }
   onSearchChange(): void {
     this.currentPage = 1;
@@ -109,11 +115,17 @@ export class UserComponent  implements OnInit{
   
   editUser(user : Account)
   {
-    return user;
+    this.router.navigate(['/account/profile', user.id])
+    return user.id;
   }
   
   deleteUser(user: Account)
   {
     return user;
+  }
+
+  accountProfile()
+  {
+    
   }
 }

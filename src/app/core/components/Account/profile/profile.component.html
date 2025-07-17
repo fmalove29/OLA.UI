@@ -1,0 +1,225 @@
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <img src="assets/images/1708474767668.jpeg" alt="" class="w-100" />
+                        </div>
+                        <div class="col-12">
+                            {{profileData?.firstName}} {{profileData?.middleName}} {{profileData?.lastName}}
+                        </div>
+                        <div class="col-12">
+                            {{profileData?.userName}}
+                        </div>
+                        <div class="col-12">
+                            {{profileData?.email}}
+                        </div>
+                        <div class="col-12">
+                            {{profileData?.phoneNumber}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h3><strong>Address</strong></h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="addressDataSource" multiTemplateDataRows
+                            class="mat-elevation-z8 w-100">
+
+                            <ng-container matColumnDef="purok">
+                                <th mat-header-cell *matHeaderCellDef>Purok</th>
+                                <td mat-cell *matCellDef="let element">{{ element.purok }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="barangay">
+                                <th mat-header-cell *matHeaderCellDef>Barangay</th>
+                                <td mat-cell *matCellDef="let element">{{ element.barangay }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="city">
+                                <th mat-header-cell *matHeaderCellDef>City</th>
+                                <td mat-cell *matCellDef="let element">{{ element.city }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="isPermanent">
+                                <th mat-header-cell *matHeaderCellDef>IsPermanent</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <ng-container *ngIf="element.active == true">
+                                        <mat-icon style="color: green;">check_circle</mat-icon>
+                                    </ng-container>
+                                </td>
+                            </ng-container>
+
+
+
+                            <!-- Row Definitions -->
+                            <tr mat-header-row *matHeaderRowDef="addressdisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: addressdisplayedColumns;"></tr>
+                            <tr class="mat-row text-center" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data Available</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h3><strong>Relatives</strong></h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="familiesDataSource" multiTemplateDataRows
+                            class="mat-elevation-z8 w-100">
+
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef>Name</th>
+                                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="contactNumber">
+                                <th mat-header-cell *matHeaderCellDef>Contact Number</th>
+                                <td mat-cell *matCellDef="let element">{{ element.contactNumber }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="relationshipTypeName">
+                                <th mat-header-cell *matHeaderCellDef>Relation Type</th>
+                                <td mat-cell *matCellDef="let element">{{ element.relationshipTypeName }}</td>
+                            </ng-container>
+
+
+                            <!-- Row Definitions -->
+                            <tr mat-header-row *matHeaderRowDef="familiesdisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: familiesdisplayedColumns;"></tr>
+                            <tr class="mat-row text-center" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data available</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <mat-accordion class="shadow">
+                <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Loan Application</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="loanApplicationDataSource" multiTemplateDataRows
+                            class="mat-elevation-z8 w-100">
+
+                            <ng-container matColumnDef="principal">
+                                <th mat-header-cell *matHeaderCellDef>Principal</th>
+                                <td mat-cell *matCellDef="let element">{{ element.amountRequested }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="terms">
+                                <th mat-header-cell *matHeaderCellDef>Term in Days</th>
+                                <td mat-cell *matCellDef="let element">{{ element.termsInDays }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="daterequested">
+                                <th mat-header-cell *matHeaderCellDef>Relation Type</th>
+                                <td mat-cell *matCellDef="let element">{{ element.notes }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef>Status</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <ng-container [ngSwitch]="element.applicationStatus">
+                                        <span *ngSwitchCase="0"
+                                            class="badge bg-primary text-light">Pending</span>
+                                        <span *ngSwitchCase="1" class="badge bg-success">Approved</span>
+                                        <span *ngSwitchCase="2" class="badge bg-danger">Approved</span>
+                                        <span *ngSwitchDefault class="badge bg-secondary">Unknown</span>
+                                    </ng-container>
+                                </td>
+                            </ng-container>
+
+
+
+                            <!-- Row Definitions -->
+                            <tr mat-header-row *matHeaderRowDef="ladisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: ladisplayedColumns;"></tr>
+                            <tr class="mat-row text-center" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No application available</td>
+                            </tr>
+                        </table>
+                    </div>
+                </mat-expansion-panel>
+                <br>
+                <!-- loan table -->
+                <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Loans</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="loanDataSource" multiTemplateDataRows
+                            class="mat-elevation-z8 w-100">
+
+                            <ng-container matColumnDef="loanNumber">
+                                <th mat-header-cell *matHeaderCellDef>Loan  Number</th>
+                                <td mat-cell *matCellDef="let element">{{ element.loanNumber }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="principal">
+                                <th mat-header-cell *matHeaderCellDef>Principal</th>
+                                <td mat-cell *matCellDef="let element">{{ element.principalAmount }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="termsInDays">
+                                <th mat-header-cell *matHeaderCellDef>Terms</th>
+                                <td mat-cell *matCellDef="let element">{{ element.termsInDays }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="dueDate">
+                                <th mat-header-cell *matHeaderCellDef>Due Date</th>
+                                <td mat-cell *matCellDef="let element">{{ element.dueDate }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="interestRate">
+                                <th mat-header-cell *matHeaderCellDef>Interest Rate</th>
+                                <td mat-cell *matCellDef="let element">{{ element.interestRate }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef>Status</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <ng-container [ngSwitch]="element.loanStatus">
+                                        <span *ngSwitchCase="0"
+                                            class="badge bg-primary text-light">{{element.loanStatusName}}</span>
+                                        <span *ngSwitchCase="1" class="badge bg-success">{{element.loanStatusName}}</span>
+                                        <span *ngSwitchCase="2" class="badge bg-danger">{{element.loanStatusName}}</span>
+                                        <span *ngSwitchDefault class="badge bg-secondary">{{element.loanStatus}}</span>
+                                    </ng-container>
+                                </td>
+                            </ng-container>
+
+
+
+                            <!-- Row Definitions -->
+                            <tr mat-header-row *matHeaderRowDef="ldisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: ldisplayedColumns;"></tr>
+                            <tr class="mat-row text-center" *matNoDataRow>
+                                <td class="mat-cell" colspan="6">No loan available</td>
+                            </tr>
+                        </table>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>

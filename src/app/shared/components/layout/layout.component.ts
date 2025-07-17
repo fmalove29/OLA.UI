@@ -7,10 +7,11 @@ import { SidnavComponent } from "../sidnav/sidnav.component";
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth/authservice.service';
 import { Router } from '@angular/router';
+import { LoadingSpinnerComponent } from "../../loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-layout',
-  imports: [NavbarComponent, MatSidenavModule, SidnavComponent, RouterModule],
+  imports: [NavbarComponent, MatSidenavModule, SidnavComponent, RouterModule, LoadingSpinnerComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })

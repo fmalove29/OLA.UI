@@ -3,7 +3,9 @@
 <div class="container py-3 w-100">
   <div class="card">
     <div class="card-body shadow">
-      <div class="card-title"><h3>Access</h3></div>
+      <div class="card-title">
+        <h3>Access</h3>
+      </div>
       <div class="row align-items-center mb-3">
         <div class="col-md-6">
           <mat-form-field appearance="fill" class="w-100">
@@ -20,68 +22,70 @@
           </button>
         </div>
       </div>
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
 
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-        </ng-container>
+          <!-- Path Column -->
+          <ng-container matColumnDef="path">
+            <th mat-header-cell *matHeaderCellDef>Path</th>
+            <td mat-cell *matCellDef="let element">{{ element.path }}</td>
+          </ng-container>
 
-        <!-- Path Column -->
-        <ng-container matColumnDef="path">
-          <th mat-header-cell *matHeaderCellDef>Path</th>
-          <td mat-cell *matCellDef="let element">{{ element.path }}</td>
-        </ng-container>
+          <!-- Module Column -->
+          <ng-container matColumnDef="module">
+            <th mat-header-cell *matHeaderCellDef>Module</th>
+            <td mat-cell *matCellDef="let element">{{ element.module }}</td>
+          </ng-container>
 
-        <!-- Module Column -->
-        <ng-container matColumnDef="module">
-          <th mat-header-cell *matHeaderCellDef>Module</th>
-          <td mat-cell *matCellDef="let element">{{ element.module }}</td>
-        </ng-container>
+          <!-- Roles Column -->
+          <ng-container matColumnDef="roles">
+            <th mat-header-cell *matHeaderCellDef>Roles</th>
+            <td mat-cell *matCellDef="let element">{{ element.roles }}</td>
+          </ng-container>
 
-        <!-- Roles Column -->
-        <ng-container matColumnDef="roles">
-          <th mat-header-cell *matHeaderCellDef>Roles</th>
-          <td mat-cell *matCellDef="let element">{{ element.roles }}</td>
-        </ng-container>
+          <!-- Active Column -->
+          <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon [style.color]="element.active ? 'green' : 'red'">
+                {{ element.active ? 'circle' : 'block' }}
+              </mat-icon>
+            </td>
+          </ng-container>
 
-        <!-- Active Column -->
-        <ng-container matColumnDef="active">
-          <th mat-header-cell *matHeaderCellDef>Status</th>
-          <td mat-cell *matCellDef="let element">
-            <mat-icon [style.color]="element.active ? 'green' : 'red'">
-              {{ element.active ? 'circle' : 'block' }}
-            </mat-icon>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-button [matMenuTriggerFor]="menu">
-              {{element.active == true ? 'Active' : 'In Active'}}
-              <mat-icon>expand_more</mat-icon>
-            </button>
-
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="openConfirmation()">
-                <mat-icon [style.color]="'green'">check_circle</mat-icon>
-                <span>Activate</span>
-              </button>
-              <button mat-menu-item>
-                <mat-icon [style.color]="'red'">block</mat-icon>
-                <span>Deactivate</span>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button [matMenuTriggerFor]="menu">
+                {{element.active == true ? 'Active' : 'In Active'}}
+                <mat-icon>expand_more</mat-icon>
               </button>
 
-            </mat-menu>
-          </td>
-        </ng-container>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openConfirmation()">
+                  <mat-icon [style.color]="'green'">check_circle</mat-icon>
+                  <span>Activate</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon [style.color]="'red'">block</mat-icon>
+                  <span>Deactivate</span>
+                </button>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
 
       <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]"
         (page)="onPageChange($event)">

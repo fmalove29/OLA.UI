@@ -94,7 +94,7 @@
                             <mat-icon>search</mat-icon>
                             Search
                         </mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="Access...." />
+                        <input matInput (keyup)="applyFilter($event)" placeholder="User...." />
                     </mat-form-field>
                 </div>
             </div>
@@ -147,54 +147,79 @@
                                         <div class="row w-100">
                                             <div class="col-6">
                                                 <div class="card">
+                                                    <!-- Addresses Section -->
                                                     <div class="card-body">
                                                         <div class="card-title"></div>
-                                                        <div *ngIf="element.addresses && element.addresses.length">
-                                                            <h4>Addresses:</h4>
-                                                            <table class="table table-bordered table-sm">
-                                                                <thead class="thead-light">
-                                                                    <tr>
-                                                                        <th>Purok</th>
-                                                                        <th>Barangay</th>
-                                                                        <th>City</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
+                                                        <h4>Addresses:</h4>
+                                                        <table class="table table-bordered table-sm">
+                                                            <thead class="thead-light">
+                                                                <tr>
+                                                                    <th>Purok</th>
+                                                                    <th>Barangay</th>
+                                                                    <th>City</th>
+                                                                    <th>isPermanent</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <ng-container
+                                                                    *ngIf="element.addresses?.length > 0; else noAddresses">
                                                                     <tr *ngFor="let address of element.addresses">
                                                                         <td>{{ address.purok || '' }}</td>
                                                                         <td>{{ address.barangay || '' }}</td>
                                                                         <td>{{ address.city || '' }}</td>
+                                                                        <td>
+                                                                            <ng-container *ngIf="address.active == true">
+                                                                                <mat-icon
+                                                                                    style="color: green;">check_circle</mat-icon>
+                                                                            </ng-container>
+                                                                        </td>
                                                                     </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                                                </ng-container>
+                                                            </tbody>
+                                                        </table>
+                                                        <ng-template #noAddresses>
+                                                            <tr>
+                                                                <td colspan="4" class="text-center text-muted">No data
+                                                                    found</td>
+                                                            </tr>
+                                                        </ng-template>
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="card">
+                                                    <!-- Families Section -->
                                                     <div class="card-body">
                                                         <div class="card-title"></div>
-                                                        <div *ngIf="element.families && element.families.length">
-                                                            <h4>Family Members</h4>
-                                                            <table class="table table-bordered table-sm">
-                                                                <thead class="thead-light">
-                                                                    <tr>
-                                                                        <th>Name</th>
-                                                                        <th>Contact</th>
-                                                                        <th>RelationShip</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
+                                                        <h4>Family Members:</h4>
+                                                        <table class="table table-bordered table-sm">
+                                                            <thead class="thead-light">
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Contact</th>
+                                                                    <th>RelationShip</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <ng-container
+                                                                    *ngIf="element.families?.length > 0; else noFamilies">
                                                                     <tr *ngFor="let family of element.families">
                                                                         <td>{{ family.name || '' }}</td>
                                                                         <td>{{ family.contactNumber || '' }}</td>
                                                                         <td>{{ family.relationshipTypeName || '' }}</td>
                                                                     </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                                                </ng-container>
+                                                            </tbody>
+                                                        </table>
+                                                        <ng-template #noFamilies>
+                                                            <tr>
+                                                                <td colspan="4" class="text-center text-muted">No data
+                                                                    found</td>
+                                                            </tr>
+                                                        </ng-template>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -207,12 +232,12 @@
                             <td mat-cell *matCellDef="let element">
                                 <button mat-icon-button color="primary"
                                     (click)="editUser(element); $event.stopPropagation()">
-                                    <mat-icon>edit</mat-icon>
+                                    <mat-icon [style.color]="'#2196F3'">visibility</mat-icon>
                                 </button>
-                                <button mat-icon-button color="warn"
+                                <!-- <button mat-icon-button color="warn"
                                     (click)="deleteUser(element); $event.stopPropagation()">
                                     <mat-icon>delete</mat-icon>
-                                </button>
+                                </button> -->
                             </td>
                         </ng-container>
 

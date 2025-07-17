@@ -13,6 +13,7 @@ export const AppEndpoints = {
     Account : 
     {
         GetAccounts : `${apiUrl}Account/accounts`,
+        CheckProfileByAdmin : `${apiUrl}Account/profile`
     },
     Permission : {
         GetUserAccess : `${apiUrl}Permission/access`
