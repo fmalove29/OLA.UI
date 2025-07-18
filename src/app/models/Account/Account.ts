@@ -33,13 +33,13 @@ export interface AccountResponse {
 }
 
 export interface AccountParams{
-    firstName : string,
-    lastName : string,
-    userName : string,
-    search : string,
-    email : string,
-    total : number,
-    limit : number,
-    page : number,
-    lastPage : number
+    firstName? : string,
+    lastName? : string,
+    userName? : string,
+    search? : string,
+    email? : string,
+    total? : number,
+    limit? : number,
+    page? : number,
+    lastPage? : number
 }

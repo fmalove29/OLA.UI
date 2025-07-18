@@ -21,3 +21,11 @@ export interface Access {
     };
   }
   
+  export interface AccessParams{
+    name? : string,
+    module? : string,
+    role? : string,
+    page? : number,
+    limit? : number,
+    search? : any,
+  }

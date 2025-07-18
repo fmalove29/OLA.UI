@@ -251,9 +251,13 @@
                 </div>
             </div>
 
-            <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]"
-                (page)="onPageChange($event)">
+            <mat-paginator
+            [length]="totalItems"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[5, 10, 25]"
+            (page)="onPageChange($event)">
             </mat-paginator>
+
         </div>
     </div>
 </div>

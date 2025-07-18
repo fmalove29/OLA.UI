@@ -42,9 +42,9 @@ export class UserComponent  implements OnInit{
   
   dataSource = new MatTableDataSource<Account>();
   totalItems = 0;
-  pageSize = 10;
+  pageSize = 5;
   currentPage = 1;
-  lastPage = 0;
+
 
 
   firstName = '';
@@ -65,28 +65,26 @@ export class UserComponent  implements OnInit{
   }
 
   loadAccount(): void {
-    const AccessParams : AccountParams = {
+    const AccountParams : AccountParams = {
       firstName : this.firstName,
       lastName : this.lastName,
       userName : this.userName,
       search : this.search,
       email : this.email,
-      total : this.totalItems,
-      limit : this.pageSize,
+      // total : this.totalItems,
+      
       page : this.currentPage,
-      lastPage : this.lastPage
+      limit : this.pageSize
     }
     
 
-    this.accountService.getAccounts(AccessParams).subscribe(response => {
+    this.accountService.getAccounts(AccountParams).subscribe(response => {
       console.log(response);
-      this.totalItems = response.meta.total;
       this.dataSource.data = response.data;
+      this.totalItems = response.meta.total;
     })  
   }
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator
-  }
+
   onSearchChange(): void {
     this.currentPage = 1;
     this.loadAccount();

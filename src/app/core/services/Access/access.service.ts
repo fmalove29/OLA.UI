@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PermissionAccess } from '../../../models/response/Administrator/PermissionAccess';
 import { AppEndpoints } from '../../../AppEndpoints';
-import { Access, AccessResponse } from '../../../models/Administrator/Access';
+import { Access, AccessParams, AccessResponse } from '../../../models/Administrator/Access';
 import { Observable } from 'rxjs';
 import { PagedResponse } from '../../../models/common/PagedResponse';
 
@@ -14,14 +14,7 @@ export class AccessService {
   constructor(private http: HttpClient) { }
 
 
-  getAllAccess(params: {
-    Name?: string;
-    Module?: string;
-    Role?: string;
-    Page?: number;
-    Limit?: number;
-    Search?: string;
-  }): Observable<PagedResponse<Access>> {
+  getAllAccess(params: AccessParams): Observable<PagedResponse<Access>> {
     let httpParams = new HttpParams();
     for (const key in params) {
       const typedKey = key as keyof typeof params;

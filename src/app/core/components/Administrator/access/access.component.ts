@@ -4,7 +4,7 @@ import { Component,  OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { Access } from '../../../../models/Administrator/Access';
+import { Access, AccessParams } from '../../../../models/Administrator/Access';
 import { AccessService } from '../../../services/Access/access.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -70,14 +70,16 @@ export class AccessComponent implements OnInit {
   }
 
   loadData(): void {
-    this.accessService.getAllAccess({
-      Name: this.name,
-      Module: this.module,
-      Role: this.role,
-      Page: this.currentPage,
-      Limit: this.pageSize,
-      Search: this.search
-    }).subscribe(response => {
+
+    const AccessParams : AccessParams ={
+      name : this.name,
+      module : this.module,
+      role : this.role,
+      page : this.currentPage,
+      limit : this.pageSize
+    }
+
+    this.accessService.getAllAccess(AccessParams).subscribe(response => {
       this.dataSource.data = response.data;
       this.totalItems = response.meta.total;
     });
