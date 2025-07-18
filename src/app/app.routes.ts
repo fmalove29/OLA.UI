@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './shared/components/layout/layout.component';
-import { authGuard } from './core/guards/auth.guard';
+import { authGuard, noAuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -16,6 +16,6 @@ export const routes: Routes = [
         ],
         canActivate : [authGuard]
     },
-    { path: 'login', loadComponent : () => import('../app/shared/components/auth/login/login.component').then(l => l.LoginComponent)},
+    { path: 'login', loadComponent : () => import('../app/shared/components/auth/login/login.component').then(l => l.LoginComponent), canActivate: [noAuthGuard]},
     { path : '**' , loadComponent : () => import('../app/shared/components/notfound/notfound.component').then(nt => nt.NotfoundComponent) }
 ];
