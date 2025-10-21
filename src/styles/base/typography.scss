@@ -1,0 +1,27 @@
+@use '../abstracts/variables'  as vars;
+// Typography for Dark Ember Theme
+$font-family-base: 'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
+
+// Font sizes (mobile-first, scalable)
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-md: 1rem; // 16px (base)
+$font-size-lg: 1.25rem; // 20px
+$font-size-xl: 1.5rem; // 24px
+$font-size-xxl: 2rem; // 32px+
+
+// Headings
+$heading-color: vars.$text-light;
+$heading-weight: 600;
+
+// Body text
+$body-color: vars.$text-secondary;
+$body-weight: 400;
+$line-height-base: 1.6;
+
+// Emphasis
+$emphasis-color: vars.$text-light;
+$link-color: vars.$primary;
+// $link-hover-color: lighten(vars.$primary, 5%);
+$link-decoration: none;
+$link-hover-decoration: underline;

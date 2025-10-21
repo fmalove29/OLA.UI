@@ -11,6 +11,8 @@ import { AuthService } from '../../../../core/services/auth/authservice.service'
 import { RouterModule, Router } from '@angular/router';
 import { error } from 'console';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule, MatCardContent } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
@@ -24,8 +26,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     ReactiveFormsModule,
     RouterModule,
-    MatIconModule
-  ],
+    MatIconModule,
+    MatGridListModule,
+    MatCardModule
+],
+  standalone : true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

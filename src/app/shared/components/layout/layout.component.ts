@@ -13,7 +13,7 @@ import { LoadingSpinnerComponent } from "../../loading-spinner/loading-spinner.c
   selector: 'app-layout',
   imports: [NavbarComponent, MatSidenavModule, SidnavComponent, RouterModule, LoadingSpinnerComponent],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
+  styleUrl: './layout.component.scss'
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;

@@ -1,0 +1,40 @@
+@use './variables' as *;
+
+@mixin custom-table {
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: $card;
+        color: $text-primary;
+        border: 1px solid $dividers;
+        font-size: 14px;
+        border-radius: 8px;
+        overflow: hidden;
+
+        thead {
+            background-color: $accor;
+
+            th {
+                color: $primary; // HEADLINE COLOR
+                font-weight: bold;
+                text-align: left;
+                padding: 12px;
+                border-bottom: 1px solid $dividers;
+            }
+        }
+
+        tbody {
+            tr {
+                &:hover {
+                    background-color: $hover;
+                }
+
+                td {
+                    padding: 12px;
+                    border-bottom: 1px solid $dividers;
+                    color: $text-muted;
+                }
+            }
+        }
+    }
+}

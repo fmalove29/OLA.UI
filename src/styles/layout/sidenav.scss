@@ -1,0 +1,13 @@
+// styles/abstracts/_mixins.scss
+@use '../abstracts/variables' as vars;
+
+@mixin sidebar {
+    background-color: vars.$ola-container;
+    height: 100vh;
+    width: 250px;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}

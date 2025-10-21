@@ -8,7 +8,8 @@ export const AppEndpoints = {
     },
     Access : {
         GetAllAccess : `${apiUrl}Access`,
-        AddModule : `${apiUrl}Access`
+        AddModule : `${apiUrl}Access`,
+        GetAllModule : `${apiUrl}Access/Modules`
     },
     Account : 
     {
@@ -16,6 +17,10 @@ export const AppEndpoints = {
         CheckProfileByAdmin : `${apiUrl}Account/profile`
     },
     Permission : {
-        GetUserAccess : `${apiUrl}Permission/access`
+        GetUserAccess : `${apiUrl}Permission/access`,
+        AddPermission : `${apiUrl}Permission`
+    },
+    LookUp : {
+        SelectedUserRole : `${apiUrl}Role/GetRolesBySelectedProfile`
     }
 }

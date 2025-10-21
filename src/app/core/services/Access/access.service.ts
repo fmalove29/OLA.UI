@@ -43,4 +43,8 @@ export class AccessService {
     return this.http.post<Access>(AppEndpoints.Access.AddModule, acceess);
   }
 
+  getAllModules() :Observable<Access[]>
+  {
+    return this.http.get<Access[]>(AppEndpoints.Access.GetAllModule);
+  }
 }

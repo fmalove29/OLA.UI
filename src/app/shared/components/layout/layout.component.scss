@@ -1,0 +1,15 @@
+@use '../../../../styles/layout/sidenav' as mixins;
+
+
+.full-height{
+    margin: 0;
+    height: 100vh;
+}
+
+.sidnav{
+    @include mixins.sidebar
+}
+
+app-navbar{
+    background-color: violet;
+}

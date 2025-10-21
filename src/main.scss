@@ -1,0 +1,22 @@
+// Abstracts
+@use '../src/styles/abstracts/variables';
+@use '../src/styles/abstracts/mixins';
+
+// Base
+@use '../src/styles/base/base';
+@use '../src/styles/base/typography';
+@use '../src/styles/base/reset';
+
+// // Layouts
+// @import 'layouts/header';
+// @import 'layouts/footer';
+// @import 'layouts/sidebar';
+
+// // Components
+// @import 'components/button';
+
+// Themes - You can switch theme here
+// @import 'themes/dark-ember';
+
+// @import 'utilities/helpers';
+// @import 'utilities/animations';

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountProfile, Family, Loan, LoanApplication } from '../../../../models/response/Administrator/AccountProfile';
 import { AccountService } from '../../../services/account/account.service';
@@ -7,15 +7,26 @@ import { Account, Address } from '../../../../models/Account/Account';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { AccessService } from '../../../services/Access/access.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [MatTableModule, MatIconModule, CommonModule, MatExpansionModule],
+  imports: [
+    MatTableModule,MatIconModule,
+    CommonModule,MatExpansionModule,
+    MatTabsModule,MatButtonModule,
+    MatDialogModule
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent implements OnInit {
+  //Table
   accountId : string = ''
   addressdisplayedColumns: string[] = ['purok', 'barangay', 'city', 'isPermanent'];
   familiesdisplayedColumns : string[] = ['name', 'contactNumber', 'relationshipTypeName'];
@@ -23,7 +34,9 @@ export class ProfileComponent implements OnInit {
   ldisplayedColumns : string[] = ['loanNumber', 'principal', 'termsInDays','dueDate', 'interestRate', 'status'];
   readonly panelOpenState = signal(false);
 
-  
+  //Dialog
+
+  readonly dialog = inject(MatDialog);
 
 
   profileData?: AccountProfile;
@@ -32,7 +45,7 @@ export class ProfileComponent implements OnInit {
   loanDataSource = new MatTableDataSource<Loan>();
   loanApplicationDataSource = new MatTableDataSource<LoanApplication>();
 
-  constructor(private route : ActivatedRoute,  private accountService : AccountService){}
+  constructor(private route : ActivatedRoute,  private accountService : AccountService, private accessService : AccessService){}
 
   ngOnInit(): void {
     this.accountId = this.route.snapshot.paramMap.get('accountId') || '';
@@ -68,5 +81,12 @@ export class ProfileComponent implements OnInit {
   hasLoanApplicationData(): boolean
   {
     return this.loanApplicationDataSource.data.length > 0;
+  }
+
+  openProfileDialog()
+  {
+    this.dialog.open(ProfileDialogComponent,{
+      data : { AppUserId : this.accountId }
+    });
   }
 }

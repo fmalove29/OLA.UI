@@ -11,7 +11,7 @@ import { AuthService } from '../../../core/services/auth/authservice.service';
   imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule],
   standalone : true,
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
   constructor( private sidnavService : SidenavService, private authService :AuthService)

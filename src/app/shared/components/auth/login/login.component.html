@@ -27,8 +27,8 @@
                         <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
                             Password is required
                         </mat-error>
-                        <button
-                            matIconButton
+                        <button type="button"
+                            mat-icon-button
                             matSuffix
                             (click)="clickEvent($event)"
                             [attr.aria-label]="'Hide password'"
@@ -46,3 +46,104 @@
         </div>
     </div>
 </div>
+
+
+<!-- <mat-grid-list cols="1" rowHeight="2:1" gutterSize="200px">
+    <mat-grid-tile>
+        <app-card  title="Dashboard" subtitle="Welcome">
+            <mat-card-content>
+                <mat-grid-list cols="2">
+                    <mat-grid-tile>
+                        <img src="assets/images/undraw_events-calendar_sudy.png" alt="test" class="w-100">
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Email</mat-label>
+                                <input matInput type="email" formControlName="email" />
+                                <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                                    Email is required
+                                </mat-error>
+                                <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+                                    Invalid email format
+                                </mat-error>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Password</mat-label>
+                                <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
+                                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                                    Password is required
+                                </mat-error>
+                                <button type="button"
+                                    matIconButton
+                                    matSuffix
+                                    (click)="clickEvent($event)"
+                                    [attr.aria-label]="'Hide password'"
+                                    [attr.aria-pressed]="hide()">
+                                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <button mat-raised-button color="primary" type="submit">Login</button>
+                                <a mat-button color="accent">Sign Up</a>
+                            </div>
+                        </form>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card-content>
+        </app-card>
+    </mat-grid-tile>
+</mat-grid-list> -->
+
+<!-- <mat-grid-list cols="2" rowHeight="2:1" gutterSize="0">
+    <mat-grid-tile>
+        <app-card class="full-width full-height" title="Dashboard" subtitle="Welcome">
+            <mat-card-content class="full-height">
+                <div class="full-height">
+                    <mat-grid-list cols="2" gutterSize="32px">
+                        <mat-grid-tile>
+                            <img src="assets/images/undraw_events-calendar_sudy.png" alt="test" class="w-100">
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput type="email" formControlName="email" />
+                                    <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                                        Email is required
+                                    </mat-error>
+                                    <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+                                        Invalid email format
+                                    </mat-error>
+                                </mat-form-field>
+                    
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
+                                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                                        Password is required
+                                    </mat-error>
+                                    <button type="button"
+                                        matIconButton
+                                        matSuffix
+                                        (click)="clickEvent($event)"
+                                        [attr.aria-label]="'Hide password'"
+                                        [attr.aria-pressed]="hide()">
+                                        <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                    
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <button mat-raised-button color="primary" type="submit">Login</button>
+                                    <a mat-button color="accent">Sign Up</a>
+                                </div>
+                            </form>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+            </mat-card-content>
+        </app-card>
+    </mat-grid-tile>
+</mat-grid-list> -->
